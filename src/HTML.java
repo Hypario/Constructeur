@@ -1,4 +1,10 @@
 
+/**
+ * Permet de construire une représentation HTML.
+ * 
+ * @author leberre
+ *
+ */
 public class HTML implements Constructeur {
 
 	@Override

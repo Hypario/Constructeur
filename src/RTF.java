@@ -1,4 +1,10 @@
 
+/**
+ * Permet de construire une représentation RTF.
+ * 
+ * @author leberre
+ *
+ */
 public class RTF implements Constructeur {
 
 	@Override
