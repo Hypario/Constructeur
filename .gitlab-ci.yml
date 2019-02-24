@@ -1,0 +1,11 @@
+build:
+  script: ./build.sh
+  stage: build
+  artifacts:
+    untracked: true
+
+tests:
+   script: ./test.sh
+   stage: test
+   dependencies: 
+    - build
