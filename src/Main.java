@@ -1,7 +1,7 @@
-import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
+import java.util.Scanner;
 
 /**
  * Permet de lancer la conversion en ligne de commande :
@@ -32,7 +32,7 @@ public class Main {
 		if (args.length == 2) {
 			filename = args[1];
 			try {
-				builder = (Constructeur) Class.forName(args[0] + "Builder").newInstance();
+				builder = (Constructeur) Class.forName(args[0]).newInstance();
 			} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
 				builder = new HTML();
 			}
@@ -41,8 +41,9 @@ public class Main {
 			builder = new HTML();
 		}
 		Directeur director = new Directeur(builder);
-		try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
-			director.build(reader);
+		
+		try (Scanner scanner = new Scanner(new File(filename))) {
+			director.build(scanner);
 			System.out.println(builder.getResult());
 		} catch (FileNotFoundException e) {
 			System.err.println("Fichier invalide");

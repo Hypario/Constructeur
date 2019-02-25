@@ -1,5 +1,5 @@
-import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.Scanner;
 
 /**
  * Le rôle de cette classe est de lire un fichier 
@@ -27,12 +27,12 @@ public class Directeur {
 	 * objet constructeur sur chaque structure
 	 * repérée.
 	 * 
-	 * @param reader un objet permettant d'accéder au fichier ligne à ligne.
+	 * @param scanner un objet permettant d'accéder au fichier ligne à ligne.
 	 * @throws IOException si un problème 
 	 */
-	public void build(BufferedReader reader) throws IOException {
+	public void build(Scanner scanner) throws IOException {
 		String line;		
-		while ((line = reader.readLine()) != null) {
+		while ((line = scanner.nextLine()) != null) {
 			// TODO : analyser le format markdown
 			
 
