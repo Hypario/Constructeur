@@ -32,7 +32,8 @@ public class Directeur {
 	 */
 	public void build(Scanner scanner) throws IOException {
 		String line;		
-		while ((line = scanner.nextLine()) != null) {
+		while (scanner.hasNext()) {
+			line = scanner.nextLine();
 			// TODO : analyser le format markdown
 			
 
