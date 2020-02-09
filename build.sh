@@ -7,7 +7,8 @@ exitcode=0
 # retrieve java files to compile
 find src -name *.java -print >javafiles
 # compile the files for java 8+
-javac -encoding="UTF-8" -d bin -source 8 -target 8 @javafiles
+echo $LANG
+javac -d bin -source 8 -target 8 @javafiles
 exitcode=$((exitcode + $?))
 # create an autoexceutable jar file
 jar -cvfe builder-${USER}.jar Main -C bin/ .
