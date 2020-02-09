@@ -7,7 +7,7 @@ exitcode=0
 # retrieve java files to compile
 find src -name *.java -print >javafiles
 # compile the files for java 8+
-echo $LANG
+LANG=fr_FR.utf8
 javac -d bin -source 8 -target 8 @javafiles
 exitcode=$((exitcode + $?))
 # create an autoexceutable jar file
