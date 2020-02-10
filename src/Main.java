@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Scanner;
 
 /**
@@ -32,8 +33,8 @@ public class Main {
 		if (args.length == 2) {
 			filename = args[1];
 			try {
-				builder = (Constructeur) Class.forName(args[0]).getConstructor().newInstance();
-			} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+				builder = (Constructeur) Class.forName(args[0]).getDeclaredConstructor().newInstance();
+			} catch (InstantiationException | IllegalAccessException | ClassNotFoundException | NoSuchMethodException | InvocationTargetException e) {
 				builder = new HTML();
 			}
 		} else {
