@@ -32,7 +32,7 @@ public class Main {
 		if (args.length == 2) {
 			filename = args[1];
 			try {
-				builder = (Constructeur) Class.forName(args[0]).newInstance();
+				builder = (Constructeur) Class.forName(args[0]).getConstructor().newInstance();
 			} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
 				builder = new HTML();
 			}
