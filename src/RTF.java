@@ -1,82 +1,89 @@
 
 /**
  * Permet de construire une représentation RTF.
- * 
+ *
  * @author leberre
  *
  */
 public class RTF implements Constructeur {
 
+	StringBuilder string = new StringBuilder();
+
 	@Override
 	public void onParagraphBegin() {
-		// TODO Auto-generated method stub
-
+		string.append("{\\pard ");
 	}
 
 	@Override
 	public void onParagraphEnd() {
-		// TODO Auto-generated method stub
-
+		string.append(" \\par}");
 	}
 
 	@Override
 	public void buildHeader1(String s) {
-		// TODO Auto-generated method stub
-
+		header("fs40", s);
 	}
 
 	@Override
 	public void buildHeader2(String s) {
-		// TODO Auto-generated method stub
-
+		header("fs30", s);
 	}
 
 	@Override
 	public void buildHeader3(String s) {
-		// TODO Auto-generated method stub
-
+		header("fs20", s);
 	}
 
 	@Override
 	public void onBeginUnsortedList() {
-		// TODO Auto-generated method stub
-
+		string.append("\\line{\\pard\\li500\\ql");
+		newLine();
 	}
 
 	@Override
 	public void buildListItem(String s) {
-		// TODO Auto-generated method stub
-
+		string.append("{\\b * } ").append(s).append("\\line");
 	}
 
 	@Override
 	public void onEndUnsortedList() {
-		// TODO Auto-generated method stub
-
+		string.append("\\line\\par}");
 	}
 
 	@Override
 	public void buildRawText(String s) {
-		// TODO Auto-generated method stub
-
+		string.append(s);
 	}
 
 	@Override
 	public void buildBold(String s) {
-		// TODO Auto-generated method stub
-
+		surround("b", s);
 	}
 
 	@Override
 	public void buildItalic(String s) {
-		// TODO Auto-generated method stub
-
+		surround("i", s);
 	}
 
 	@Override
 	public String getResult() {
-		// TODO Auto-generated method stub
-		return "";
+		return string.toString();
+	}
+
+	private void header(String tag, String s) {
+		string
+				.append("{\\pard\\qc\\b\\").append(tag)
+				.append(s)
+				.append(" \\par}");
+		newLine();
+	}
+
+	private void surround(String tag, String s) {
+		string.append("{\\").append(tag).append(" ").append(s).append(" }");
+	}
+
+	private void newLine() {
+		string.append(System.lineSeparator());
 	}
 
 }

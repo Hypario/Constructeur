@@ -1,82 +1,100 @@
 
 /**
  * Permet de construire une représentation HTML.
- * 
- * @author leberre
  *
+ * @author leberre
  */
 public class HTML implements Constructeur {
 
-	@Override
-	public void onParagraphBegin() {
-		// TODO Auto-generated method stub
+    StringBuilder string = new StringBuilder();
 
-	}
+    HTML() {
+        string.append("<html>");
+        newLine();
+        string.append("<body>");
+        newLine();
+    }
 
-	@Override
-	public void onParagraphEnd() {
-		// TODO Auto-generated method stub
+    @Override
+    public void onParagraphBegin() {
+        string.append("<p>");
+    }
 
-	}
+    @Override
+    public void onParagraphEnd() {
+        string.append("</p>");
+        newLine();
+    }
 
-	@Override
-	public void buildHeader1(String s) {
-		// TODO Auto-generated method stub
+    @Override
+    public void buildHeader1(String s) {
+        surround("h1", s);
+    }
 
-	}
+    @Override
+    public void buildHeader2(String s) {
+        surround("h2", s);
+    }
 
-	@Override
-	public void buildHeader2(String s) {
-		// TODO Auto-generated method stub
+    @Override
+    public void buildHeader3(String s) {
+        surround("h3", s);
+    }
 
-	}
+    @Override
+    public void onBeginUnsortedList() {
+        string.append("<ul>");
+        newLine();
+    }
 
-	@Override
-	public void buildHeader3(String s) {
-		// TODO Auto-generated method stub
+    @Override
+    public void buildListItem(String s) {
+        string.append("<li>").append(s).append("</li>");
+        newLine();
+    }
 
-	}
+    @Override
+    public void onEndUnsortedList() {
+        string.append("</ul>");
+        newLine();
+    }
 
-	@Override
-	public void onBeginUnsortedList() {
-		// TODO Auto-generated method stub
+    @Override
+    public void buildRawText(String s) {
+        string.append(s);
+    }
 
-	}
+    @Override
+    public void buildBold(String s) {
+        surround("b", s);
+        newLine();
+    }
 
-	@Override
-	public void buildListItem(String s) {
-		// TODO Auto-generated method stub
+    @Override
+    public void buildItalic(String s) {
+        surround("i", s);
+        newLine();
+    }
 
-	}
+    @Override
+    public String getResult() {
 
-	@Override
-	public void onEndUnsortedList() {
-		// TODO Auto-generated method stub
+        string.append("</body>");
+        newLine();
+        string.append("</html>");
+        return string.toString();
+    }
 
-	}
+    private void surround(String tag, String s) {
+        string
+                .append("<").append(tag).append(">")
+                .append(s)
+                .append("</").append("type").append(">");
+        newLine();
+    }
 
-	@Override
-	public void buildRawText(String s) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void buildBold(String s) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void buildItalic(String s) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public String getResult() {
-		// TODO Auto-generated method stub
-		return "";
-	}
+    private void newLine() {
+        string.append(System.lineSeparator());
+    }
 
 }
