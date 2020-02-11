@@ -1,4 +1,3 @@
-
 /**
  * Permet de construire une représentation HTML.
  *
@@ -6,9 +5,9 @@
  */
 public class HTML implements Constructeur {
 
-    StringBuilder string = new StringBuilder();
+    private final StringBuilder string = new StringBuilder();
 
-    HTML() {
+    public HTML() {
         string.append("<html>");
         newLine();
         string.append("<body>");
@@ -78,7 +77,6 @@ public class HTML implements Constructeur {
 
     @Override
     public String getResult() {
-
         string.append("</body>");
         newLine();
         string.append("</html>");
@@ -89,7 +87,7 @@ public class HTML implements Constructeur {
         string
                 .append("<").append(tag).append(">")
                 .append(s)
-                .append("</").append("type").append(">");
+                .append("</").append(tag).append(">");
         newLine();
     }
 
