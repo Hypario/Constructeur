@@ -4,7 +4,7 @@ build:
   artifacts:
     untracked: true
   tags:
-     - iut
+     - java
 
 
 tests:
@@ -13,4 +13,4 @@ tests:
    dependencies:
     - build
    tags:
-     - iut
+     - java
