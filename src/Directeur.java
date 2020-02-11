@@ -10,48 +10,76 @@ import java.util.Scanner;
  */
 public class Directeur {
 
-    private final Constructeur constructeur;
+	private final Constructeur constructeur;
 
-    /**
-     * Initialise un objet Directeur avec un constructeur.
-     *
-     * @param constructeur un traducteur.
-     */
-    public Directeur(Constructeur constructeur) {
-        this.constructeur = constructeur;
-    }
+	/**
+	 * Initialise un objet Directeur avec un constructeur.
+	 *
+	 * @param constructeur un traducteur.
+	 */
+	public Directeur(Constructeur constructeur) {
+		this.constructeur = constructeur;
+	}
 
-    /**
-     * Lit un fichier markdown et appelle un
-     * objet constructeur sur chaque structure
-     * repérée.
-     *
-     * @param scanner un objet permettant d'accéder au fichier ligne à ligne.
-     * @throws IOException si un problème
-     */
-    public void build(Scanner scanner) throws IOException {
-        String line;
+	/**
+	 * Lit un fichier markdown et appelle un
+	 * objet constructeur sur chaque structure
+	 * repérée.
+	 *
+	 * @param scanner un objet permettant d'accéder au fichier ligne à ligne.
+	 * @throws IOException si un problème
+	 */
+	public void build(Scanner scanner) throws IOException {
+		String line;
 
-        boolean p = false, ul = false;
+		boolean ul = false;
 
-        while (scanner.hasNext()) {
-            line = scanner.nextLine();
-            if (line.startsWith("# ")) {
-                constructeur.buildHeader1(line.substring(2));
-            } else if (line.startsWith("## ")) {
-                constructeur.buildHeader2(line.substring(3));
-            } else if (line.startsWith("### ")) {
-                constructeur.buildHeader2(line.substring(4));
-            } else if (!line.equals("")) {
-                if (!p) {
-                    constructeur.onParagraphEnd();
-                    p = false;
-                } else {
-                    constructeur.onParagraphBegin();
-                    constructeur.buildRawText(line);
-                    p = true;
-                }
-            }
-        }
-    }
+		while (scanner.hasNext()) {
+			line = scanner.nextLine();
+
+			// split line into words
+			String[] words = line.split(" ", 2);
+
+			// match the first word
+			switch (words[0]) {
+				case "#":
+					constructeur.buildHeader1(words[1]);
+					break;
+				case "##":
+					constructeur.buildHeader2(words[1]);
+					break;
+				case "###":
+					constructeur.buildHeader3(words[1]);
+					break;
+				case "+":
+					if (!ul) {
+						constructeur.onBeginUnsortedList();
+						ul = true;
+					}
+					constructeur.buildListItem(words[1]);
+					break;
+				case "":
+					ul = ensureEndUnsortedList(ul);
+					break;
+				default:
+					ul = ensureEndUnsortedList(ul);
+					constructeur.onParagraphBegin();
+					constructeur.buildRawText(line);
+					constructeur.onParagraphEnd();
+			}
+		}
+		ensureEndUnsortedList(ul);
+	}
+
+	/**
+	 * assure que la liste est bien terminé
+	 * @param ul boolean
+	 * @return false
+	 */
+	private boolean ensureEndUnsortedList(boolean ul) {
+		if (ul) {
+			constructeur.onEndUnsortedList();
+		}
+		return false;
+	}
 }
