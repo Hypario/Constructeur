@@ -32,7 +32,7 @@ public class Directeur {
 	public void build(Scanner scanner) throws IOException {
 		String line;
 
-		boolean ul = false;
+		boolean ul = false, p = false;
 
 		while (scanner.hasNext()) {
 			line = scanner.nextLine();
@@ -59,15 +59,21 @@ public class Directeur {
 					constructeur.buildListItem(words[1]);
 					break;
 				case "":
+					p = ensureEndParagraph(p);
 					ul = ensureEndUnsortedList(ul);
 					break;
 				default:
 					ul = ensureEndUnsortedList(ul);
-					constructeur.onParagraphBegin();
-					constructeur.buildRawText(line);
-					constructeur.onParagraphEnd();
+					if (!p) {
+						constructeur.onParagraphBegin();
+						p = true;
+					} else {
+						constructeur.buildRawText(System.lineSeparator());
+					}
+					handleLine(line);
 			}
 		}
+		ensureEndParagraph(p);
 		ensureEndUnsortedList(ul);
 	}
 
@@ -81,5 +87,16 @@ public class Directeur {
 			constructeur.onEndUnsortedList();
 		}
 		return false;
+	}
+
+	private boolean ensureEndParagraph(boolean p) {
+		if (p) {
+			constructeur.onParagraphEnd();
+		}
+		return false;
+	}
+
+	private void handleLine(String line) {
+		constructeur.buildRawText(line);
 	}
 }
