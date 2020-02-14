@@ -16,8 +16,8 @@ do
     fi
 done 
 if [ $exitcode -eq 0 ]; then 
-      echo -e "${GREEN}All tests pass${NONE}" 
-    else 
-      echo -e "${RED}Some test(s) fail(s)${NONE}" 
-    fi
+    echo -e "${GREEN}All tests pass${NONE}" 
+else 
+    echo -e "${RED}Some test(s) fail(s)${NONE}" 
+fi
 exit $exitcode
