@@ -1,4 +1,7 @@
 #!/bin/bash
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+export LANGUAGE=en_US.UTF-8
 exitcode=0
 RED='\033[0;31m'
 GREEN='\033[0;32m'
