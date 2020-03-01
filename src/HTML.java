@@ -27,17 +27,17 @@ public class HTML implements Constructeur {
 
     @Override
     public void buildHeader1(String s) {
-        surround("h1", s);
+        header("h1", s);
     }
 
     @Override
     public void buildHeader2(String s) {
-        surround("h2", s);
+        header("h2", s);
     }
 
     @Override
     public void buildHeader3(String s) {
-        surround("h3", s);
+        header("h3", s);
     }
 
     @Override
@@ -66,13 +66,11 @@ public class HTML implements Constructeur {
     @Override
     public void buildBold(String s) {
         surround("b", s);
-        newLine();
     }
 
     @Override
     public void buildItalic(String s) {
         surround("i", s);
-        newLine();
     }
 
     @Override
@@ -84,12 +82,16 @@ public class HTML implements Constructeur {
         return string.toString();
     }
 
+    private void header(String tag, String s) {
+        surround(tag, s);
+        newLine();
+    }
+
     private void surround(String tag, String s) {
         string
                 .append("<").append(tag).append(">")
                 .append(s)
                 .append("</").append(tag).append(">");
-        newLine();
     }
 
     private void newLine() {
