@@ -80,6 +80,7 @@ public class HTML implements Constructeur {
         string.append("</body>");
         newLine();
         string.append("</html>");
+        newLine();
         return string.toString();
     }
 
